@@ -1,73 +1,61 @@
 import * as React from "react";
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-import { Subscription } from 'rxjs/Subscription'
+import { State } from '../../application/application.store' 
+import { setUserName, homeButtonClicked, homeButtonClickedOutside } from './clickingExample.actions';
 
 import * as dataModels from './clickingExample.dataModels';
 
 import UserNameBar from './components/userNameBar';
 import ClickingPanel from './components/clickingPanel';
 
-import * as clickingExampleService from "./clickingExample.service";
-
-interface ClickingExamplesState { 
-    userName: string;
-    clickingData: dataModels.ClickingData;
-    subscriptions: Subscription[];
-}
-
-export default class ClickingExample extends React.Component<{}, ClickingExamplesState> {
-
-    /* Lifecycle Methods */
-
-    componentWillMount() {
-        let subscriptions: Subscription[] = [];
-
-        /* Map Services Subscriptions */
-
-        subscriptions.push(clickingExampleService.userName$.subscribe((userName) => {
-                this.setState({userName});
-            })
-        );
-
-        subscriptions.push(clickingExampleService.clickingData$.subscribe((clickingData) => {
-                this.setState({clickingData});
-            })
-        );
-
-        this.setState({subscriptions});
-    }
-
-    componentWillUnmount() {
-        this.state.subscriptions.forEach((subscription) => {
-            subscription.unsubscribe();
-        });
-    }
+class ClickingExample extends React.Component<any, any> {
 
     /* Class Methods */
 
-    setUserName(userName: string) {
-        clickingExampleService.setUserName(userName);
+    setUserName = (userName: string) => {
+        this.props.setUserName(userName);
     }
 
-    homeButtonClicked() {
-        clickingExampleService.homeButtonClicked();
+    homeButtonClicked = () => {
+        this.props.homeButtonClicked();
     }
 
-    homeButtonClickedOutside() {
-        clickingExampleService.homeButtonClickedOutside();
+    homeButtonClickedOutside = () => {
+        this.props.homeButtonClickedOutside();
     }
 
     render() {
         return <div className="clicking-example margined-content">
             <UserNameBar 
-                userName={this.state.userName} 
+                userName={this.props.userName} 
                 userNameChangedHandler={this.setUserName}
             />
             <ClickingPanel
-                clickingData={this.state.clickingData}
+                clickingData={this.props.clickingData}
                 homeButtonClickedHandler={this.homeButtonClicked}
                 homeButtonClickedOutsideHandler={this.homeButtonClickedOutside}
             />
         </div>
     }
 }
+
+const mapStateToProps = (state: State) => {
+    const { clickingExample } = state;
+    const { userName, clickingData } = clickingExample;
+    return {
+        userName,
+        clickingData
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<State>) => {
+    return {
+        setUserName: (userName: string) => dispatch(setUserName(userName)),
+        homeButtonClicked: () => dispatch(homeButtonClicked()),
+        homeButtonClickedOutside: () => dispatch(homeButtonClickedOutside())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ClickingExample);

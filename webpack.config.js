@@ -3,6 +3,7 @@ var path = require('path');
 var webpack = require('webpack');
 
 var config = {
+  mode: 'development',
   entry: './src/index.tsx',
   output: {
     path: path.resolve(__dirname, './dist'),
@@ -27,7 +28,7 @@ var config = {
           }, 
           { loader: "sass-loader" }
         ]
-			},
+      },
       {
         test: /\.(png|jpg|gif|svg)$/,
         loader: 'file-loader',
@@ -52,13 +53,18 @@ var config = {
   },
   externals: {
 	  "react" : "React",
-    "react-dom" : "ReactDOM"
+    "react-dom" : "ReactDOM",
+    "prop-types" : "PropTypes",
+    "redux" : "Redux",
+    "redux-thunk" : "ReduxThunk",
+    "react-redux" : "ReactRedux"
 	},
   devtool: '#eval-source-map'
 }
 
 module.exports = (env) => {
   if (env && env.production) {
+    config.mode = 'production'
     config.devtool = '#source-map'
     config.output.filename = 'build.min.js'
     config.plugins = (config.plugins || []).concat([

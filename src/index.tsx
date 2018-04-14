@@ -6,11 +6,9 @@
 
 import * as React from "react";
 import * as ReactDOM from "react-dom";
+import { Provider } from "react-redux";
 
 import { HashRouter } from 'react-router-dom';
-
-import { Observable } from 'rxjs/Observable';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import {IntlProvider} from 'react-intl';
 
@@ -20,13 +18,17 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Application from "./application/application"
 
+import { store } from "./application/application.store";
+
 ReactDOM.render(
-    <IntlProvider locale={i18nService.locale} messages={i18nService.messages} key={i18nService.locale}>
-        <MuiThemeProvider>
-            <HashRouter>
-                <Application/>
-            </HashRouter>
-        </MuiThemeProvider>
-    </IntlProvider>,
+    <Provider store={store}>
+        <IntlProvider locale={i18nService.locale} messages={i18nService.messages} key={i18nService.locale}>
+            <MuiThemeProvider>
+                <HashRouter>
+                    <Application/>
+                </HashRouter>
+            </MuiThemeProvider>
+        </IntlProvider>
+    </Provider>,
     document.getElementById("app")
 );

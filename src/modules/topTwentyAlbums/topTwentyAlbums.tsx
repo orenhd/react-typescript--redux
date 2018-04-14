@@ -1,6 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
 
-import { Subscription } from 'rxjs/Subscription';
+import { State } from '../../application/application.store' 
+import { loadGenreIds, loadAlbumEntriesByGenreId } from './topTwentyAlbums.actions';
+import { getCurrentGenre, getAlbumEntriesList } from './topTwentyAlbums.selectors';
 
 import * as dataModels from './topTwentyAlbums.dataModels';
 import * as viewModels from './topTwentyAlbums.viewModels';
@@ -8,66 +12,48 @@ import * as viewModels from './topTwentyAlbums.viewModels';
 import GenreSelectionBar from './components/genreSelectionBar';
 import AlbumsList from './components/albumsList';
 
-import * as topTwentyAlbumsService from "./topTwentyAlbums.service";
-
-interface TopTwentyAlbumsState { 
-    genres: dataModels.ITunesGenre[];
-    currentGenre: dataModels.ITunesGenre;
-    albumEntriesList: viewModels.AlbumEntryListItem[];
-    subscriptions: Subscription[];
-}
-
-export default class TopTwentyAlbums extends React.Component<{}, TopTwentyAlbumsState> {
+class TopTwentyAlbums extends React.Component<any, any> {
 
     /* Lifecycle Methods */
 
     componentWillMount() {
-        let subscriptions: Subscription[] = [];
-
-        /* Map Services Subscriptions */
-
-        subscriptions.push(topTwentyAlbumsService.genres$.subscribe((genres) => {
-                this.setState({genres});
-            })
-        );
-
-        subscriptions.push(topTwentyAlbumsService.currentGenre$.subscribe((currentGenre) => {
-                this.setState({currentGenre});
-            })
-        );
-
-        subscriptions.push(topTwentyAlbumsService.albumEntriesList$.subscribe((albumEntriesList) => {
-                this.setState({albumEntriesList});
-            })
-        );
-
-        this.setState({subscriptions});
-
-        topTwentyAlbumsService.loadGenreIds();
-    }
-
-    componentWillUnmount() {
-        this.state.subscriptions.forEach((subscription) => {
-            subscription.unsubscribe();
-        });
+        this.props.loadGenreIds();
     }
 
     /* Class Methods */
 
-    loadAlbumEntriesByGenreId(genreId: number) {
-        topTwentyAlbumsService.loadAlbumEntriesByGenreId(genreId);
+    loadAlbumEntriesByGenreId = (genreId: number) => {
+        this.props.loadAlbumEntriesByGenreId(genreId);
     }
 
     render() {
         return <div className="top-twenty-albums">
             <GenreSelectionBar 
-                genres={this.state.genres} 
-                currentGenre={this.state.currentGenre}
+                genres={this.props.genres} 
+                currentGenre={this.props.currentGenre}
                 genreSelectedHandler={this.loadAlbumEntriesByGenreId}
             />
-            <AlbumsList
-                albumEntriesList={this.state.albumEntriesList}
-            />
+            {this.props.albumEntriesList && <AlbumsList
+                albumEntriesList={this.props.albumEntriesList}
+            />}
         </div>
     }
 }
+
+const mapStateToProps = (state: State) => {
+    const { topTwentyAlbums } = state;
+    return {
+        genres: topTwentyAlbums.genres,
+        currentGenre: getCurrentGenre(state),
+        albumEntriesList: getAlbumEntriesList(state)
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<State>) => {
+    return {
+        loadGenreIds: () => dispatch(loadGenreIds()),
+        loadAlbumEntriesByGenreId: (genreId: number) => dispatch(loadAlbumEntriesByGenreId(genreId))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopTwentyAlbums);

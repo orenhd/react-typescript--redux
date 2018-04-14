@@ -1,7 +1,7 @@
 {
-  "name": "vue-to-react-typescript--rxjs",
+  "name": "react-typescript--redux",
   "version": "1.0.0",
-  "description": "A fork of vue-typescript--rxjs, demonstrating a conversion of the boilerplate codebase from Vue.js to React, while still utilizing Typescript, RxJS and material design components",
+  "description": "A React + Typescript and Redux boilerplate playground",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -16,29 +16,38 @@
     "name": "Oren Hadar",
     "url": "https://github.com/orenhd"
   },
-  "license": "Apache-2.0",
-  "dependencies": {},
+  "license": "ISC",
+  "dependencies": {
+    "@types/react-redux": "^5.0.16"
+  },
   "devDependencies": {
     "@types/material-ui": "^0.21.0",
+    "@types/prop-types": "^15.5.2",
     "@types/react": "^16.0.38",
     "@types/react-dom": "^16.0.4",
     "@types/react-intl": "^2.3.5",
     "@types/react-router-dom": "^4.2.4",
-    "awesome-typescript-loader": "^3.5.0",
+    "awesome-typescript-loader": "^5.0.0",
     "css-loader": "^0.28.1",
     "material-ui": "^0.20.0",
-    "node-sass": "^4.5.3",
+    "node-sass": "^4.8.3",
     "npm-run-all": "^4.0.2",
+    "prop-types": "^15.6.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-intl": "^2.4.0",
+    "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "rxjs": "^5.5.6",
+    "redux": "^3.7.2",
+    "redux-persist": "^5.9.1",
+    "redux-thunk": "^2.2.0",
+    "reselect": "^3.0.1",
     "sass-loader": "^6.0.6",
     "source-map-loader": "^0.2.3",
-    "style-loader": "^0.18.2",
+    "style-loader": "^0.20.3",
     "typescript": "^2.7.2",
-    "webpack": "^2.5.0",
-    "webpack-dev-server": "^2.5.0"
+    "webpack": "^4.0.0",
+    "webpack-cli": "^2.0.1",
+    "webpack-dev-server": "^3.1.0"
   }
 }

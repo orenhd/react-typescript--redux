@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import PropTypes from "prop-types";
+
 import { $t } from '../../../i18n/i18n.service'
 
 import SelectField from 'material-ui/SelectField';
@@ -21,5 +23,18 @@ const GenreSelectionBar: React.SFC<GenreSelectionBarProps> = (props: GenreSelect
 >
     {props.genres.map(genre => <MenuItem value={genre.id} primaryText={genre.title} key={genre.id} />)}
 </SelectField>
+
+/* We can still use propTypes for dynamic type-checking ;) */
+GenreSelectionBar.propTypes = {
+    genres: PropTypes.arrayOf(PropTypes.shape({
+        'title': PropTypes.string.isRequired,
+        'id': PropTypes.number.isRequired
+    })).isRequired,
+    currentGenre: PropTypes.shape({
+        'title': PropTypes.string.isRequired,
+        'id': PropTypes.number.isRequired
+    }),
+    genreSelectedHandler: PropTypes.func.isRequired
+}
 
 export default GenreSelectionBar;

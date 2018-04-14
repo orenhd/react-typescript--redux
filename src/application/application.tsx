@@ -1,11 +1,13 @@
 import * as React from "react";
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+
+import { State } from './application.store' 
 
 import {FormattedMessage, FormattedDate} from 'react-intl';
 import { $t } from '../i18n/i18n.service';
 
 import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
-
-import { Subscription } from 'rxjs/Subscription';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -14,34 +16,29 @@ import FontIcon from 'material-ui/FontIcon';
 
 const styles = require('./application.scss');
 
-import * as clickingExampleService from "../modules/clickingExample/clickingExample.service";
-
 /* module components */
 import ClickingExample from "../modules/clickingExample/clickingExample";
 import TopTwentyAlbums from "../modules/topTwentyAlbums/topTwentyAlbums";
 
-interface ApplicationState { open: boolean, greeting: string, subscriptions: Subscription[] }
+interface ApplicationState { open: boolean }
 
-export default class Application extends React.Component<{}, ApplicationState> {
+class Application extends React.Component<any, ApplicationState> {
 
-    /* Lifecycle Methods */
+    constructor(props: any) {
+        super(props);
+        this.state = { open: false };
+    }
 
+/*
     componentWillMount() {
         let subscriptions: Subscription[] = [];
-
-        /* Map Services Subscriptions */
 
         subscriptions.push(clickingExampleService.userName$.subscribe((userName) => {
                 this.setState({greeting: userName ? $t.formatMessage({ id: 'general.greeting' }, {userName}) : ''});
             })
         );
     }
-
-    componentWillUnmount() {
-        this.state.subscriptions.forEach((subscription) => {
-            subscription.unsubscribe();
-        });
-    }
+*/
 
     /* Class Methods */
 
@@ -51,7 +48,7 @@ export default class Application extends React.Component<{}, ApplicationState> {
     render() {
         return <div className="application">
         <AppBar
-            title={this.state.greeting}
+            title={this.props.userName}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             onLeftIconButtonClick={this.handleToggle}
         />
@@ -89,3 +86,17 @@ export default class Application extends React.Component<{}, ApplicationState> {
         </div>;
     }
 }
+
+const mapStateToProps = (state: State) => {
+    const { clickingExample } = state;
+    const { userName } = clickingExample;
+    return {
+        userName
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch<State>) => {
+    return {}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Application);

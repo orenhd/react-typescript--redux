@@ -1,5 +1,7 @@
 import * as React from "react";
 
+import PropTypes from "prop-types";
+
 import { $t } from '../../../i18n/i18n.service'
 
 import { NavLink, Route } from 'react-router-dom';
@@ -19,7 +21,9 @@ interface ClickingPanelProps {
     homeButtonClickedOutsideHandler: () => void;
 }
 
-export default class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
+class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
+
+    public static propTypes: PropTypes.ValidationMap<ClickingPanelProps>;
 
     /* Private Class Properties */
 
@@ -29,7 +33,6 @@ export default class ClickingPanel extends React.Component<ClickingPanelProps, {
 
     componentDidMount() {
         this.boundDocumentClickHandler = getDocumentClickHandler(this, this.homeButtonWrapperRef, this.props.homeButtonClickedOutsideHandler);
-
         document.addEventListener('click', this.boundDocumentClickHandler);
     }
 
@@ -59,4 +62,16 @@ export default class ClickingPanel extends React.Component<ClickingPanelProps, {
         </div>
     }
 }
+
+/* We can still use propTypes for dynamic type-checking ;) */
+ClickingPanel.propTypes = {
+    clickingData: PropTypes.shape({
+        'homeButtonClickCount': PropTypes.number,
+        'homeButtonClickOutsideCount': PropTypes.number
+    }),
+    homeButtonClickedHandler: PropTypes.func.isRequired,
+    homeButtonClickedOutsideHandler: PropTypes.func.isRequired
+}
+
+export default ClickingPanel;
 
