@@ -4,7 +4,7 @@ A basic React + Typescript and Redux boilerplate playground.
 A live version of this repository can be found [here](https://orenhd.github.io/react-typescript--redux/) (Dev mode).
 
 ## Features
-- [Redux](https://www.npmjs.com/package/redux) architecture, implemented by [react-redux](https://www.npmjs.com/package/react-redux) demonstrated by two exemplary modules.
+- [Redux](https://www.npmjs.com/package/redux) architecture, implemented by [react-redux](https://www.npmjs.com/package/react-redux) and demonstrated by two exemplary modules.
 - npm commands to run with Webpack watch and dev-server features, build for production.
 - All React and Redux related packages are loaded from CDN and marked on Webpack as externals.
 - Scss support, with guidelines for dynamically loading Component-scoped rules.
