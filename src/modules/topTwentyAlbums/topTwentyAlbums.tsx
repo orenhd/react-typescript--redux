@@ -33,9 +33,9 @@ class TopTwentyAlbums extends React.Component<any, any> {
                 currentGenre={this.props.currentGenre}
                 genreSelectedHandler={this.loadAlbumEntriesByGenreId}
             />
-            {this.props.albumEntriesList && <AlbumsList
+            <AlbumsList
                 albumEntriesList={this.props.albumEntriesList}
-            />}
+            />
         </div>
     }
 }

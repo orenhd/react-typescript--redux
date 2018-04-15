@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router';
 
 import { State } from './application.store' 
 
@@ -20,35 +21,35 @@ const styles = require('./application.scss');
 import ClickingExample from "../modules/clickingExample/clickingExample";
 import TopTwentyAlbums from "../modules/topTwentyAlbums/topTwentyAlbums";
 
+interface ApplicationProps {
+    userName: string,
+    match: any,
+    location: any,
+    history: any
+}
+
 interface ApplicationState { open: boolean }
 
-class Application extends React.Component<any, ApplicationState> {
+class Application extends React.Component<ApplicationProps, ApplicationState> {
 
-    constructor(props: any) {
+    constructor(props: ApplicationProps) {
         super(props);
         this.state = { open: false };
     }
-
-/*
-    componentWillMount() {
-        let subscriptions: Subscription[] = [];
-
-        subscriptions.push(clickingExampleService.userName$.subscribe((userName) => {
-                this.setState({greeting: userName ? $t.formatMessage({ id: 'general.greeting' }, {userName}) : ''});
-            })
-        );
-    }
-*/
 
     /* Class Methods */
 
     handleToggle = () => this.setState({ open: !this.state.open});
     handleClose = () => this.setState({ open: false });
 
+    
+
     render() {
+        const { userName } = this.props;
+
         return <div className="application">
         <AppBar
-            title={this.props.userName}
+            title={$t.formatMessage({ id: 'general.greeting' }, {userName})}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             onLeftIconButtonClick={this.handleToggle}
         />
@@ -99,4 +100,4 @@ const mapDispatchToProps = (dispatch: Dispatch<State>) => {
     return {}
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Application);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Application));

@@ -40,9 +40,9 @@ export const loadGenreIds = () => (dispatch: Dispatch<State>, getState: () => St
     if (!topTwentyAlbums.currentGenreId)
         ITunesService.getGenres().then((genres: dataModels.ITunesGenre[]) => {
             dispatch({ type: SET_GENRES, genres });
-            if (genres && genres[0]) {
+            if (genres && genres[0] && !topTwentyAlbums.currentGenreId) {
                 //loading genre ids is always followed by loading the selected genre albums list
-                dispatch({ type: LOAD_ALBUM_ENTRIES_BY_GENRE_ID, genreId: genres[0].id});
+                dispatch(loadAlbumEntriesByGenreId(genres[0].id));
             }
         })
 

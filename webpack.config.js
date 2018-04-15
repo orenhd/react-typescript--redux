@@ -57,6 +57,7 @@ var config = {
     "prop-types" : "PropTypes",
     "redux" : "Redux",
     "redux-thunk" : "ReduxThunk",
+    "redux-persist" : "ReduxPersist",
     "react-redux" : "ReactRedux"
 	},
   devtool: '#eval-source-map'
@@ -71,12 +72,6 @@ module.exports = (env) => {
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: '"production"'
-        }
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        sourceMap: true,
-        compress: {
-          warnings: false
         }
       }),
       new webpack.LoaderOptionsPlugin({

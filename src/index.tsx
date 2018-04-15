@@ -10,6 +10,8 @@ import { Provider } from "react-redux";
 
 import { HashRouter } from 'react-router-dom';
 
+import { PersistGate } from 'redux-persist/integration/react'
+
 import {IntlProvider} from 'react-intl';
 
 import * as i18nService from "./i18n/i18n.service";
@@ -18,17 +20,19 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Application from "./application/application"
 
-import { store } from "./application/application.store";
+import { store, persistor } from "./application/application.store";
 
 ReactDOM.render(
     <Provider store={store}>
-        <IntlProvider locale={i18nService.locale} messages={i18nService.messages} key={i18nService.locale}>
-            <MuiThemeProvider>
-                <HashRouter>
-                    <Application/>
-                </HashRouter>
-            </MuiThemeProvider>
-        </IntlProvider>
+        <PersistGate loading={null} persistor={persistor}>
+            <IntlProvider locale={i18nService.locale} messages={i18nService.messages} key={i18nService.locale}>
+                <MuiThemeProvider>
+                    <HashRouter>
+                        <Application />
+                    </HashRouter>
+                </MuiThemeProvider>
+            </IntlProvider>
+        </PersistGate>
     </Provider>,
     document.getElementById("app")
 );
