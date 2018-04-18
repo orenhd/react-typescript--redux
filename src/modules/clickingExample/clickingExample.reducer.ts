@@ -1,27 +1,25 @@
 import { Action } from 'redux';
 
-import { SET_USER_NAME, HOME_BUTTON_CLICKED, HOME_BUTTON_CLICKED_OUTSIDE } from './clickingExample.actions';
+import { SET_USER_NAME, UPDATE_CLICKING_DATA } from './clickingExample.actions';
 
 import * as dataModels from './clickingExample.dataModels';
 
 export interface state {
   userName: string;
-  clickingData: dataModels.ClickingData | null;
+  clickingData: dataModels.ClickingData;
 }
 
 const initialState: state = {
   userName: 'World',
-  clickingData: { homeButtonClickCount: 0, homeButtonClickOutsideCount: 0 }
+  clickingData: {}
 }
 
 export function reducer(state: state = initialState, action: any) {
   switch (action.type) {
     case SET_USER_NAME:
       return { ...state, userName: action.userName };
-    case HOME_BUTTON_CLICKED:
-      return { ...state, clickingData: {...state.clickingData, homeButtonClickCount: state.clickingData ? ++state.clickingData.homeButtonClickCount : 1} };
-    case HOME_BUTTON_CLICKED_OUTSIDE:
-      return { ...state, clickingData: {...state.clickingData, homeButtonClickOutsideCount: state.clickingData ? ++state.clickingData.homeButtonClickOutsideCount : 1} };
+    case UPDATE_CLICKING_DATA:
+      return { ...state, clickingData: action.clickingData };
     default:
       return state;
   }

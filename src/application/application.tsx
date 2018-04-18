@@ -49,7 +49,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
 
         return <div className="application">
         <AppBar
-            title={$t.formatMessage({ id: 'general.greeting' }, {userName})}
+            title={userName ? $t.formatMessage({ id: 'general.greeting' }, {userName}) : ''}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
             onLeftIconButtonClick={this.handleToggle}
         />
@@ -96,8 +96,4 @@ const mapStateToProps = (state: State) => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch<State>) => {
-    return {}
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Application));
+export default withRouter(connect(mapStateToProps, {})(Application));

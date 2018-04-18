@@ -1,4 +1,8 @@
+export enum ClickCountTypes {
+    homeButtonClick,
+    homeButtonClickOutside
+}
+
 export interface ClickingData {
-    homeButtonClickCount: number;
-    homeButtonClickOutsideCount: number;
+    [clickCountType: number]: number
 }

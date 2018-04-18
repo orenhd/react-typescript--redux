@@ -51,13 +51,13 @@ class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
                     <FontIcon className="material-icons">home</FontIcon>
                 </FloatingActionButton>
             </div>
-            <p className={styles.clickingDataText} style={{display: this.props.clickingData && this.props.clickingData.homeButtonClickCount ? 'block' : 'none'}}>
+            <p className={styles.clickingDataText} style={{display: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClick]? 'block' : 'none'}}>
                 {$t.formatMessage({id: 'clickingExample.homeButtonClicked'}, 
-                    {count: this.props.clickingData.homeButtonClickCount})}
+                    {count: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClick]})}
             </p>
-            <p className={styles.clickingDataText} style={{display: this.props.clickingData && this.props.clickingData.homeButtonClickOutsideCount ? 'block' : 'none'}}>
+            <p className={styles.clickingDataText} style={{display: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClickOutside] ? 'block' : 'none'}}>
                 {$t.formatMessage({id: 'clickingExample.homeButtonClickedOutside'}, 
-                    {count: this.props.clickingData.homeButtonClickOutsideCount})}
+                    {count: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClickOutside]})}
             </p>
         </div>
     }
@@ -65,10 +65,7 @@ class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
 
 /* We can still use propTypes for dynamic type-checking ;) */
 ClickingPanel.propTypes = {
-    clickingData: PropTypes.shape({
-        'homeButtonClickCount': PropTypes.number,
-        'homeButtonClickOutsideCount': PropTypes.number
-    }),
+    clickingData: PropTypes.object.isRequired,
     homeButtonClickedHandler: PropTypes.func.isRequired,
     homeButtonClickedOutsideHandler: PropTypes.func.isRequired
 }

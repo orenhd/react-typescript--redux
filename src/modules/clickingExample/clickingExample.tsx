@@ -1,16 +1,16 @@
 import * as React from "react";
-import { Dispatch } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../../application/application.store' 
-import { setUserName, homeButtonClicked, homeButtonClickedOutside } from './clickingExample.actions';
+import { setUserName, updateClickingData } from './clickingExample.actions';
 
 import * as dataModels from './clickingExample.dataModels';
 
 import UserNameBar from './components/userNameBar';
 import ClickingPanel from './components/clickingPanel';
 
-class ClickingExample extends React.Component<any, any> {
+class ClickingExample extends React.Component<any, {}> {
 
     /* Class Methods */
 
@@ -19,11 +19,11 @@ class ClickingExample extends React.Component<any, any> {
     }
 
     homeButtonClicked = () => {
-        this.props.homeButtonClicked();
+        this.props.updateClickingData(dataModels.ClickCountTypes.homeButtonClick);
     }
 
     homeButtonClickedOutside = () => {
-        this.props.homeButtonClickedOutside();
+        this.props.updateClickingData(dataModels.ClickCountTypes.homeButtonClickOutside);
     }
 
     render() {
@@ -51,11 +51,10 @@ const mapStateToProps = (state: State) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => {
-    return {
-        setUserName: (userName: string) => dispatch(setUserName(userName)),
-        homeButtonClicked: () => dispatch(homeButtonClicked()),
-        homeButtonClickedOutside: () => dispatch(homeButtonClickedOutside())
-    }
+    return bindActionCreators({
+        setUserName,
+        updateClickingData
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClickingExample);

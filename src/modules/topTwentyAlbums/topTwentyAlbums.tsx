@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Dispatch } from 'redux';
+import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../../application/application.store' 
@@ -12,7 +12,7 @@ import * as viewModels from './topTwentyAlbums.viewModels';
 import GenreSelectionBar from './components/genreSelectionBar';
 import AlbumsList from './components/albumsList';
 
-class TopTwentyAlbums extends React.Component<any, any> {
+class TopTwentyAlbums extends React.Component<any, {}> {
 
     /* Lifecycle Methods */
 
@@ -50,10 +50,10 @@ const mapStateToProps = (state: State) => {
 }
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => {
-    return {
-        loadGenreIds: () => dispatch(loadGenreIds()),
-        loadAlbumEntriesByGenreId: (genreId: number) => dispatch(loadAlbumEntriesByGenreId(genreId))
-    }
+    return bindActionCreators({
+        loadGenreIds,
+        loadAlbumEntriesByGenreId
+    }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopTwentyAlbums);
