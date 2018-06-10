@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { PureComponent } from "react";
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -10,7 +10,14 @@ import * as dataModels from './clickingExample.dataModels';
 import UserNameBar from './components/userNameBar';
 import ClickingPanel from './components/clickingPanel';
 
-class ClickingExample extends React.Component<any, {}> {
+interface ClickingExmapleProps {
+    userName: string;
+    clickingData: dataModels.ClickingData;
+    setUserName: any;
+    updateClickingData: any;
+}
+
+class ClickingExample extends PureComponent<ClickingExmapleProps, {}> {
 
     /* Class Methods */
 

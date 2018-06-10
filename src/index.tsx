@@ -4,15 +4,15 @@
  * by rendering the main Application Component, along with its localization, material-ui theming and routing
  **/
 
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 
 import { HashRouter } from 'react-router-dom';
 
 import { PersistGate } from 'redux-persist/integration/react'
 
-import {IntlProvider} from 'react-intl';
+import { IntlProvider } from 'react-intl';
 
 import * as i18nService from "./i18n/i18n.service";
 

@@ -1,21 +1,21 @@
-import * as React from "react";
+import React, { Component } from "react";
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
-import { State } from './application.store' 
+import { State } from './application.store';
 
 import {FormattedMessage, FormattedDate} from 'react-intl';
 import { $t } from '../i18n/i18n.service';
 
-import { NavLink, Route, Switch, Redirect } from 'react-router-dom';
+import { NavLink, Route, Redirect } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 import FontIcon from 'material-ui/FontIcon';
 
-const styles = require('./application.scss');
+const styles = require('./application.scss'); // use require to bypass typescript import, which requires typings 
 
 /* module components */
 import ClickingExample from "../modules/clickingExample/clickingExample";
@@ -30,7 +30,7 @@ interface ApplicationProps {
 
 interface ApplicationState { open: boolean }
 
-class Application extends React.Component<ApplicationProps, ApplicationState> {
+class Application extends Component<ApplicationProps, ApplicationState> {
 
     constructor(props: ApplicationProps) {
         super(props);
@@ -40,9 +40,8 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     /* Class Methods */
 
     handleToggle = () => this.setState({ open: !this.state.open});
+    handleDrawerRequestChange = (open: boolean) => this.setState({open})
     handleClose = () => this.setState({ open: false });
-
-    
 
     render() {
         const { userName } = this.props;
@@ -57,7 +56,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
             className={styles.appDrawer}
             docked={false} 
             open={this.state.open}
-            onRequestChange={(open) => this.setState({open})}
+            onRequestChange={this.handleDrawerRequestChange}
         >
           <MenuItem className={styles.menuItemTitle}>
                 <FormattedMessage id="general.navigation" />

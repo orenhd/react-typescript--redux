@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { SFC } from "react";
 
 import PropTypes from "prop-types";
 
@@ -13,7 +13,7 @@ interface UserNameBarProps {
     userNameChangedHandler: (userName: string) => void;
 }
 
-const UserNameBar: React.SFC<UserNameBarProps> = (props: UserNameBarProps) =>
+const UserNameBar: SFC<UserNameBarProps> = (props: UserNameBarProps) =>
 <TextField
     defaultValue={props.userName ? props.userName : ''}
     floatingLabelText={$t.formatMessage({id: 'clickingExample.userName'})}

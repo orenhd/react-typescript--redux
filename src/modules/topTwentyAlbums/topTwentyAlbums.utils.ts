@@ -3,6 +3,8 @@ import * as dataModels from './topTwentyAlbums.dataModels';
 import * as viewModels from './topTwentyAlbums.viewModels';
 
 export function mapToListAlbumEntries(albumEntries: dataModels.ITunesAlbumEntry[]): viewModels.AlbumEntryListItem[] {
+    if (!albumEntries || !albumEntries.length) return [];
+
     return albumEntries.map((albumEntry: dataModels.ITunesAlbumEntry) => {
         return {
             id: albumEntry.id.label,

@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { SFC } from "react";
 
 import PropTypes from "prop-types";
 
@@ -15,7 +15,7 @@ interface GenreSelectionBarProps {
     genreSelectedHandler: (genreId: number) => void;
 }
 
-const GenreSelectionBar: React.SFC<GenreSelectionBarProps> = (props: GenreSelectionBarProps) =>
+const GenreSelectionBar: SFC<GenreSelectionBarProps> = (props: GenreSelectionBarProps) =>
 <SelectField className="margined-content"
     floatingLabelText={$t.formatMessage({id: 'topTwentyAlbums.genre'})}
     value={props.currentGenre ? props.currentGenre.id : null}
@@ -25,15 +25,14 @@ const GenreSelectionBar: React.SFC<GenreSelectionBarProps> = (props: GenreSelect
 </SelectField>
 
 /* We can still use propTypes for dynamic type-checking ;) */
+const genreShape = PropTypes.shape({
+    'title': PropTypes.string.isRequired,
+    'id': PropTypes.number.isRequired
+});
+
 GenreSelectionBar.propTypes = {
-    genres: PropTypes.arrayOf(PropTypes.shape({
-        'title': PropTypes.string.isRequired,
-        'id': PropTypes.number.isRequired
-    })).isRequired,
-    currentGenre: PropTypes.shape({
-        'title': PropTypes.string.isRequired,
-        'id': PropTypes.number.isRequired
-    }),
+    genres: PropTypes.arrayOf(genreShape).isRequired,
+    currentGenre: genreShape,
     genreSelectedHandler: PropTypes.func.isRequired
 }
 

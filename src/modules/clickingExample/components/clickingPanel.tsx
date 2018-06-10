@@ -1,10 +1,8 @@
-import * as React from "react";
+import React, { PureComponent } from "react";
 
 import PropTypes from "prop-types";
 
 import { $t } from '../../../i18n/i18n.service'
-
-import { NavLink, Route } from 'react-router-dom';
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import FontIcon from 'material-ui/FontIcon';
@@ -21,7 +19,7 @@ interface ClickingPanelProps {
     homeButtonClickedOutsideHandler: () => void;
 }
 
-class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
+class ClickingPanel extends PureComponent<ClickingPanelProps, {}> {
 
     public static propTypes: PropTypes.ValidationMap<ClickingPanelProps>;
 
@@ -51,14 +49,14 @@ class ClickingPanel extends React.Component<ClickingPanelProps, {}> {
                     <FontIcon className="material-icons">home</FontIcon>
                 </FloatingActionButton>
             </div>
-            <p className={styles.clickingDataText} style={{display: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClick]? 'block' : 'none'}}>
+            {this.props.clickingData[dataModels.ClickCountTypes.homeButtonClick] && <p className={styles.clickingDataText}>
                 {$t.formatMessage({id: 'clickingExample.homeButtonClicked'}, 
                     {count: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClick]})}
-            </p>
-            <p className={styles.clickingDataText} style={{display: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClickOutside] ? 'block' : 'none'}}>
+            </p>}
+            {this.props.clickingData[dataModels.ClickCountTypes.homeButtonClickOutside] && <p className={styles.clickingDataText}>
                 {$t.formatMessage({id: 'clickingExample.homeButtonClickedOutside'}, 
                     {count: this.props.clickingData[dataModels.ClickCountTypes.homeButtonClickOutside]})}
-            </p>
+            </p>}
         </div>
     }
 }

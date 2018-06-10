@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { PureComponent } from 'react';
 import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -12,11 +12,19 @@ import * as viewModels from './topTwentyAlbums.viewModels';
 import GenreSelectionBar from './components/genreSelectionBar';
 import AlbumsList from './components/albumsList';
 
-class TopTwentyAlbums extends React.Component<any, {}> {
+export interface TopTwentyAlbumsProps {
+    genres: dataModels.ITunesGenre[];
+    currentGenre: dataModels.ITunesGenre;
+    albumEntriesList: viewModels.AlbumEntryListItem[];
+    loadGenreIds: any;
+    loadAlbumEntriesByGenreId: any;
+}
+
+class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
 
     /* Lifecycle Methods */
 
-    componentWillMount() {
+    componentDidMount() {
         this.props.loadGenreIds();
     }
 
