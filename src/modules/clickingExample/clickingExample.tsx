@@ -21,10 +21,6 @@ class ClickingExample extends PureComponent<ClickingExmapleProps, {}> {
 
     /* Class Methods */
 
-    setUserName = (userName: string) => {
-        this.props.setUserName(userName);
-    }
-
     homeButtonClicked = () => {
         this.props.updateClickingData(dataModels.ClickCountTypes.homeButtonClick);
     }
@@ -34,10 +30,12 @@ class ClickingExample extends PureComponent<ClickingExmapleProps, {}> {
     }
 
     render() {
+        const { setUserName } = this.props;
+
         return <div className="clicking-example margined-content">
             <UserNameBar 
                 userName={this.props.userName} 
-                userNameChangedHandler={this.setUserName}
+                userNameChangedHandler={setUserName}
             />
             <ClickingPanel
                 clickingData={this.props.clickingData}

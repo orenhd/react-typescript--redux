@@ -30,16 +30,15 @@ class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
 
     /* Class Methods */
 
-    loadAlbumEntriesByGenreId = (genreId: number) => {
-        this.props.loadAlbumEntriesByGenreId(genreId);
-    }
-
     render() {
+
+        const { loadAlbumEntriesByGenreId } = this.props;
+
         return <div className="top-twenty-albums">
             <GenreSelectionBar 
                 genres={this.props.genres} 
                 currentGenre={this.props.currentGenre}
-                genreSelectedHandler={this.loadAlbumEntriesByGenreId}
+                genreSelectedHandler={loadAlbumEntriesByGenreId}
             />
             <AlbumsList
                 albumEntriesList={this.props.albumEntriesList}
