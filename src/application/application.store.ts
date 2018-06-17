@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware, combineReducers, Store, Action, compose } from 'redux';
 import thunk from 'redux-thunk';
 
-import { persistStore, persistReducer, BaseReducer, Persistor } from 'redux-persist';
+import { persistStore, persistReducer, Persistor, BaseReducer, PersistConfig } from 'redux-persist';
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
 import * as clickingExample from '../modules/clickingExample/clickingExample.reducer';
 import * as topTwentyAlbums from '../modules/topTwentyAlbums/topTwentyAlbums.reducer';
 
-const persistConfig = {
+const persistConfig: PersistConfig = {
     key: 'root',
     storage,
 }
