@@ -1,14 +1,13 @@
 import React, { Component } from "react";
-import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 
 import { State } from './application.store';
 
-import {FormattedMessage, FormattedDate} from 'react-intl';
+import { FormattedMessage } from 'react-intl';
 import { $t } from '../i18n/i18n.service';
 
-import { NavLink, Route, Redirect } from 'react-router-dom';
+import { NavLink, Route, Redirect, RouteComponentProps } from 'react-router-dom';
 
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
@@ -21,12 +20,9 @@ const styles = require('./application.scss'); // use require to bypass typescrip
 import ClickingExample from "../modules/clickingExample/clickingExample";
 import TopTwentyAlbums from "../modules/topTwentyAlbums/topTwentyAlbums";
 
-interface ApplicationProps {
-    userName: string,
-    match: any,
-    location: any,
-    history: any
-}
+interface ApplicationProps extends RouteComponentProps<{}> { // route params should be defined in the RouteComponentProps type
+    userName: string
+};
 
 interface ApplicationState { open: boolean }
 
