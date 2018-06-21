@@ -5,11 +5,11 @@ const ITUNES_GET_TOP_ALBUMS: string = 'https://itunes.apple.com/us/rss/topalbums
 // iTunes rss api doesn't really have a genre ids endpoint 
 // - the following cache object is used as a mockup
 const iTunesGenreIdsCache: ITunesGenre[] = [
-    { title: 'Pop', id: 14 },
-    { title: 'Rock', id: 21 },
-    { title: 'Alternative', id: 20 },
-    { title: 'Dance', id: 17 },
-    { title: 'Electronic', id: 7 }
+    { id: 7, title: 'Electronic' },
+    { id: 14, title: 'Pop' },
+    { id: 17, title: 'Dance' },
+    { id: 20, title: 'Alternative' },
+    { id: 21, title: 'Rock' },
 ];
 
 const iTunesTopTwentyAlbumsByGenreIdCache: {[genreId: number]: ITunesAlbumEntry[]} = {};

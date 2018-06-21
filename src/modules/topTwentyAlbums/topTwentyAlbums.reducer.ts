@@ -1,21 +1,16 @@
-import { Action } from 'redux';
-
 import { SET_GENRES, SET_ALBUM_ENTRIES, SET_CURRENT_GENRE_ID } from './topTwentyAlbums.actions';
 
-import * as ITunesService from "./services/iTunes.service";
-
 import * as dataModels from './topTwentyAlbums.dataModels';
-
 import * as viewModels from './topTwentyAlbums.viewModels';
 
 export interface state {
-    genres: dataModels.ITunesGenre[];
+    genresMap: dataModels.ITunesGenresMap;
     albumEntries: dataModels.ITunesAlbumEntry[];
     currentGenreId: number | null;
 }
 
 const initialState: state = {
-    genres: [],
+    genresMap: {},
     albumEntries: [],
     currentGenreId: null
 }
@@ -23,7 +18,7 @@ const initialState: state = {
 export function reducer(state: state = initialState, action: any) {
   switch (action.type) {
     case SET_GENRES:
-      return { ...state, genres: action.genres };
+      return { ...state, genresMap: action.genresMap };
     case SET_ALBUM_ENTRIES:
       return { ...state, albumEntries: action.albumEntries };
     case SET_CURRENT_GENRE_ID:

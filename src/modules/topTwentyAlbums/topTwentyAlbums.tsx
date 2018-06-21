@@ -3,8 +3,8 @@ import { Dispatch, bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../../application/application.store' 
-import { loadGenreIds, loadAlbumEntriesByGenreId } from './topTwentyAlbums.actions';
-import { getCurrentGenre, getAlbumEntriesList } from './topTwentyAlbums.selectors';
+import { loadGenres, loadAlbumEntriesByGenreId } from './topTwentyAlbums.actions';
+import { getSortedGenres, getCurrentGenre, getAlbumEntriesList } from './topTwentyAlbums.selectors';
 
 import * as dataModels from './topTwentyAlbums.dataModels';
 import * as viewModels from './topTwentyAlbums.viewModels';
@@ -16,7 +16,7 @@ export interface TopTwentyAlbumsProps {
     genres: dataModels.ITunesGenre[];
     currentGenre: dataModels.ITunesGenre;
     albumEntriesList: viewModels.AlbumEntryListItem[];
-    loadGenreIds: any;
+    loadGenres: any;
     loadAlbumEntriesByGenreId: any;
 }
 
@@ -25,7 +25,7 @@ class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
     /* Lifecycle Methods */
 
     componentDidMount() {
-        this.props.loadGenreIds();
+        this.props.loadGenres();
     }
 
     /* Class Methods */
@@ -48,9 +48,8 @@ class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
 }
 
 const mapStateToProps = (state: State) => {
-    const { topTwentyAlbums } = state;
     return {
-        genres: topTwentyAlbums.genres,
+        genres: getSortedGenres(state),
         currentGenre: getCurrentGenre(state),
         albumEntriesList: getAlbumEntriesList(state)
     }
@@ -58,7 +57,7 @@ const mapStateToProps = (state: State) => {
 
 const mapDispatchToProps = (dispatch: Dispatch<State>) => {
     return bindActionCreators({
-        loadGenreIds,
+        loadGenres,
         loadAlbumEntriesByGenreId
     }, dispatch);
 }

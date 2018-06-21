@@ -1,19 +1,19 @@
 import { Action, ActionCreator, Dispatch } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 
 import { State } from '../../application/application.store';
 
 import * as ITunesService from "./services/iTunes.service";
 
 import * as dataModels from './topTwentyAlbums.dataModels';
-
 import * as viewModels from './topTwentyAlbums.viewModels';
 
+import { getMapFromArrayByPropertyKey } from '../../shared/utils';
+
 export const SET_GENRES: string = 'SET_GENRES';
-export const setGenres:ActionCreator<Action> = (genres: dataModels.ITunesGenre[]) => {
+export const setGenres:ActionCreator<Action> = (genresMap: dataModels.ITunesGenresMap) => {
     return {
         type: SET_GENRES,
-        genres
+        genresMap
     }
 }
 
@@ -33,14 +33,15 @@ export const setCurrentGenreId:ActionCreator<Action> = (genreId: number) => {
     }
 }
 
-export const loadGenreIds = () => (dispatch: Dispatch<State>, getState: () => State) => {
+export const loadGenres = () => (dispatch: Dispatch<State>, getState: () => State) => {
     const { topTwentyAlbums } = getState();
 
     if (!topTwentyAlbums.currentGenreId)
         ITunesService.getGenres().then((genres: dataModels.ITunesGenre[]) => {
-            dispatch(setGenres(genres));
+            const genresMap: dataModels.ITunesGenresMap = <dataModels.ITunesGenresMap> getMapFromArrayByPropertyKey(genres, 'id');
+            dispatch(setGenres(genresMap));
             if (genres && genres[0] && !topTwentyAlbums.currentGenreId) {
-                //loading genre ids is always followed by loading the selected genre albums list
+                // loading genre ids is always followed by loading the selected genre albums list
                 dispatch(loadAlbumEntriesByGenreId(genres[0].id));
             }
         })

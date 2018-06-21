@@ -8,18 +8,30 @@ import * as viewModels from './topTwentyAlbums.viewModels';
 
 import * as utils from './topTwentyAlbums.utils';
 
-export const genresSelector: Selector<State, dataModels.ITunesGenre[]> = (state: State) => state.topTwentyAlbums.genres;
+import { getSortedArrayFromMap } from '../../shared/utils';
+
+export const genresMapSelector: Selector<State, dataModels.ITunesGenresMap> = (state: State) => state.topTwentyAlbums.genresMap;
 
 export const currentGenreIdSelector: Selector<State, number | null> = (state: State) => state.topTwentyAlbums.currentGenreId;
 
 export const albumEntriesSelector: Selector<State, dataModels.ITunesAlbumEntry[]> = (state: State) => state.topTwentyAlbums.albumEntries;
 
+export const getSortedGenres: Selector<State, dataModels.ITunesGenre[] | undefined> = createSelector(
+    genresMapSelector,
+    (genresMap: dataModels.ITunesGenresMap) => {
+        if (!genresMap) return;
+
+        return getSortedArrayFromMap(genresMap, 'title');
+    }
+)
+
 export const getCurrentGenre: Selector<State, dataModels.ITunesGenre | undefined> = createSelector(
-    genresSelector,
+    genresMapSelector,
     currentGenreIdSelector,
-    (genres: dataModels.ITunesGenre[], genreId: number | null) => {
-        let matchingGenres = genres.filter((genre) => genre.id === genreId);
-        return matchingGenres[0];
+    (genresMap: dataModels.ITunesGenresMap, genreId: number | null) => {
+        if (!genreId) return;
+
+        return genresMap[genreId];
     }
 )
 
