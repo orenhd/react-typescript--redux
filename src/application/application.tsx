@@ -35,7 +35,7 @@ class Application extends Component<ApplicationProps, ApplicationState> {
 
     /* Class Methods */
 
-    handleToggle = () => this.setState({ open: !this.state.open});
+    handleToggle = () => this.setState((prevState) => { return { open: !prevState.open}; });
     handleDrawerRequestChange = (open: boolean) => this.setState({open})
     handleClose = () => this.setState({ open: false });
 
@@ -76,6 +76,7 @@ class Application extends Component<ApplicationProps, ApplicationState> {
         </Drawer>
         <Route path="/clicking-example" component={ClickingExample}/>
         <Route path="/top-twenty" component={TopTwentyAlbums}/>
+        <Route path="/top-twenty/:genreId" component={TopTwentyAlbums}/>
         <Route exact path="/" render={() => (
             <Redirect to="/top-twenty"/>
         )}/>

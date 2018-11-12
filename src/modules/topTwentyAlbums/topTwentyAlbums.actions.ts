@@ -33,18 +33,19 @@ export const setCurrentGenreId:ActionCreator<Action> = (genreId: number) => {
     }
 }
 
-export const loadGenres = () => (dispatch: Dispatch<State>, getState: () => State) => {
+export const loadGenres = (requestedGenreId: number) => (dispatch: Dispatch<State>, getState: () => State) => {
     const { topTwentyAlbums } = getState();
 
-    if (!topTwentyAlbums.currentGenreId)
-        ITunesService.getGenres().then((genres: dataModels.ITunesGenre[]) => {
-            const genresMap: dataModels.ITunesGenresMap = <dataModels.ITunesGenresMap> getMapFromArrayByPropertyKey(genres, 'id');
-            dispatch(setGenres(genresMap));
-            if (genres && genres[0] && !topTwentyAlbums.currentGenreId) {
-                // loading genre ids is always followed by loading the selected genre albums list
-                dispatch(loadAlbumEntriesByGenreId(genres[0].id));
-            }
-        })
+    ITunesService.getGenres().then((genres: dataModels.ITunesGenre[]) => {
+        const genresMap: dataModels.ITunesGenresMap = <dataModels.ITunesGenresMap> getMapFromArrayByPropertyKey(genres, 'id');
+        dispatch(setGenres(genresMap));
+
+        const genreId: number = (requestedGenreId && genresMap[requestedGenreId] && genresMap[requestedGenreId].id) 
+        || (genres[0] && genres[0].id);
+
+        // loading genre ids is always followed by loading the selected genre albums list
+        dispatch(loadAlbumEntriesByGenreId(genreId));
+    })
 
 }
 
