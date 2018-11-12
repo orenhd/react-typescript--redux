@@ -12,16 +12,21 @@ import { NavLink, Route, Redirect, RouteComponentProps } from 'react-router-dom'
 import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
+import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
 const styles = require('./application.scss'); // use require to bypass typescript import, which requires typings 
+
+import { getCurrentGenre } from '../modules/topTwentyAlbums/topTwentyAlbums.selectors';
+import * as topTwentyDataModels from '../modules/topTwentyAlbums/topTwentyAlbums.dataModels';
 
 /* module components */
 import ClickingExample from "../modules/clickingExample/clickingExample";
 import TopTwentyAlbums from "../modules/topTwentyAlbums/topTwentyAlbums";
 
 interface ApplicationProps extends RouteComponentProps<{}> { // route params should be defined in the RouteComponentProps type
-    userName: string
+    userName: string;
+    currentGenre: topTwentyDataModels.ITunesGenre;
 };
 
 interface ApplicationState { open: boolean }
@@ -40,12 +45,12 @@ class Application extends Component<ApplicationProps, ApplicationState> {
     handleClose = () => this.setState({ open: false });
 
     render() {
-        const { userName } = this.props;
+        const { userName, currentGenre } = this.props;
 
         return <div className="application">
         <AppBar
             title={userName ? $t.formatMessage({ id: 'general.greeting' }, {userName}) : ''}
-            iconClassNameRight="muidocs-icon-navigation-expand-more"
+            iconElementRight={currentGenre ? <Chip>{currentGenre.title}</Chip> : undefined}
             onLeftIconButtonClick={this.handleToggle}
         />
         <Drawer 
@@ -88,7 +93,8 @@ const mapStateToProps = (state: State) => {
     const { clickingExample } = state;
     const { userName } = clickingExample;
     return {
-        userName
+        userName,
+        currentGenre: getCurrentGenre(state),
     }
 }
 
