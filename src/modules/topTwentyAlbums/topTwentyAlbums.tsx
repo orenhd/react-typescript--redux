@@ -43,7 +43,11 @@ class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
     /* Class Methods */
 
     navigateToSelectedGenreId = (genreId: number) => {
-        this.props.history.push(`/top-twenty/${genreId}`);
+        const { currentGenre } = this.props;
+
+        if (!currentGenre || currentGenre.id !== genreId) {
+            this.props.history.push(`/top-twenty/${genreId}`);
+        }
     }
 
     render() {
