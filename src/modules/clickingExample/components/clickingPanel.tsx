@@ -1,7 +1,5 @@
 import React, { PureComponent } from "react";
 
-import PropTypes from "prop-types";
-
 import { $t } from '../../../i18n/i18n.service'
 
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -20,8 +18,6 @@ interface ClickingPanelProps {
 }
 
 class ClickingPanel extends PureComponent<ClickingPanelProps, {}> {
-
-    public static propTypes: PropTypes.ValidationMap<ClickingPanelProps>;
 
     /* Private Class Properties */
 
@@ -59,13 +55,6 @@ class ClickingPanel extends PureComponent<ClickingPanelProps, {}> {
             </p>}
         </div>
     }
-}
-
-/* We can still use propTypes for dynamic type-checking ;) */
-ClickingPanel.propTypes = {
-    clickingData: PropTypes.object.isRequired,
-    homeButtonClickedHandler: PropTypes.func.isRequired,
-    homeButtonClickedOutsideHandler: PropTypes.func.isRequired
 }
 
 export default ClickingPanel;

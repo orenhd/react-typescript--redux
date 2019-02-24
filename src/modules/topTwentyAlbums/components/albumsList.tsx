@@ -1,7 +1,5 @@
 import React, { SFC } from "react";
 
-import PropTypes from "prop-types";
-
 import {List, ListItem} from 'material-ui/List';
 import Avatar from 'material-ui/Avatar';
 
@@ -30,18 +28,5 @@ const AlbumsList: SFC<AlbumsListProps> = (props: AlbumsListProps) =>
         />
     )}
 </List>
-
-/* We can still use propTypes for dynamic type-checking ;) */
-const albumEntryShape = PropTypes.shape({
-    'id': PropTypes.string.isRequired,
-    'title': PropTypes.string.isRequired,
-    'artist': PropTypes.string.isRequired,
-    'copyright': PropTypes.string.isRequired,
-    'thumbnail': PropTypes.string.isRequired
-});
-
-AlbumsList.propTypes = {
-    albumEntriesList: PropTypes.arrayOf(albumEntryShape)
-}
 
 export default AlbumsList;
