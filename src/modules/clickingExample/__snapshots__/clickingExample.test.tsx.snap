@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`clickingExample should render correctly 1`] = `
+<div
+  className="clicking-example margined-content"
+>
+  <UserNameBar
+    userName="Worlds"
+    userNameChangedHandler={[MockFunction]}
+  />
+  <ClickingPanel
+    clickingData={
+      Object {
+        "0": 3,
+        "1": 4,
+      }
+    }
+    homeButtonClickedHandler={[Function]}
+    homeButtonClickedOutsideHandler={[Function]}
+  />
+</div>
+`;
