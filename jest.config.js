@@ -12,8 +12,12 @@ module.exports = {
         "js",
         "jsx",
         "json",
+        "scss",
         "node"
     ],
+    moduleNameMapper: {
+        "\\.(css|scss)$": "identity-obj-proxy",
+    },
     "snapshotSerializers": ["enzyme-to-json/serializer"],
     "setupFilesAfterEnv": ["<rootDir>/src/setupEnzyme.ts"],
 }

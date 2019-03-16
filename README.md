@@ -15,3 +15,4 @@ A live version of this repository can be found [here](https://orenhd.github.io/r
 - Syncing of Redux store state on localStorage using [redux-persist](https://www.npmjs.com/package/redux-persist).
 - [redux-devtools-extension](https://www.npmjs.com/package/redux-devtools-extension) integration (Dev mode only).
 - i18n support using [react-intl](https://www.npmjs.com/package/react-intl).
+- Basic unit testing, using [Jest](https://jestjs.io/) and [Enzyme](https://www.npmjs.com/package/enzyme).

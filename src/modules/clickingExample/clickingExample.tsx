@@ -17,7 +17,7 @@ interface ClickingExmapleProps {
     updateClickingData: any;
 }
 
-class ClickingExample extends PureComponent<ClickingExmapleProps, {}> {
+export class ClickingExample extends PureComponent<ClickingExmapleProps, {}> { // export base class for testing purposes
 
     /* Class Methods */
 
@@ -30,15 +30,15 @@ class ClickingExample extends PureComponent<ClickingExmapleProps, {}> {
     }
 
     render() {
-        const { setUserName } = this.props;
+        const { userName, setUserName, clickingData } = this.props;
 
         return <div className="clicking-example margined-content">
             <UserNameBar 
-                userName={this.props.userName} 
+                userName={userName} 
                 userNameChangedHandler={setUserName}
             />
             <ClickingPanel
-                clickingData={this.props.clickingData}
+                clickingData={clickingData}
                 homeButtonClickedHandler={this.homeButtonClicked}
                 homeButtonClickedOutsideHandler={this.homeButtonClickedOutside}
             />

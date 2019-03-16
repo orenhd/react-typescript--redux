@@ -15,7 +15,7 @@ import MenuItem from 'material-ui/MenuItem';
 import Chip from 'material-ui/Chip';
 import FontIcon from 'material-ui/FontIcon';
 
-const styles = require('./application.scss'); // use require to bypass typescript import, which requires typings 
+import styles from './application.scss';
 
 import { getCurrentGenre } from '../modules/topTwentyAlbums/topTwentyAlbums.selectors';
 import * as topTwentyDataModels from '../modules/topTwentyAlbums/topTwentyAlbums.dataModels';

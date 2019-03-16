@@ -1,16 +1,11 @@
-import { ITunesAlbumEntry, ITunesGenre } from '../topTwentyAlbums.DataModels';
+import iTunesGenreIdsCacheMock from './__mocks__/iTunesGenreIdsCache.mock.json';
+import { ITunesAlbumEntry, ITunesGenre } from '../topTwentyAlbums.dataModels';
 
 const ITUNES_GET_TOP_ALBUMS: string = 'https://itunes.apple.com/us/rss/topalbums/limit=20/genre=14/json';
 
 // iTunes rss api doesn't really have a genre ids endpoint 
 // - the following cache object is used as a mockup
-const iTunesGenreIdsCache: ITunesGenre[] = [
-    { id: 7, title: 'Electronic' },
-    { id: 14, title: 'Pop' },
-    { id: 17, title: 'Dance' },
-    { id: 20, title: 'Alternative' },
-    { id: 21, title: 'Rock' },
-];
+const iTunesGenreIdsCache: ITunesGenre[] = iTunesGenreIdsCacheMock;
 
 const iTunesTopTwentyAlbumsByGenreIdCache: {[genreId: number]: ITunesAlbumEntry[]} = {};
 

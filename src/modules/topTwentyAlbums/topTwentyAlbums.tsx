@@ -23,7 +23,7 @@ export interface TopTwentyAlbumsProps extends RouteComponentProps<{}> { // route
     history: any;
 }
 
-class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
+export class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> { // export base class for testing purposes
 
     /* Lifecycle Methods */
 
@@ -51,14 +51,15 @@ class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> {
     }
 
     render() {
+        const { genres, currentGenre, albumEntriesList } = this.props;
         return <div className="top-twenty-albums">
             <GenreSelectionBar 
-                genres={this.props.genres} 
-                currentGenre={this.props.currentGenre}
+                genres={genres} 
+                currentGenre={currentGenre}
                 genreSelectedHandler={this.navigateToSelectedGenreId}
             />
             <AlbumsList
-                albumEntriesList={this.props.albumEntriesList}
+                albumEntriesList={albumEntriesList}
             />
         </div>
     }
