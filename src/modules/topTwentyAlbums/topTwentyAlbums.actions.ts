@@ -35,8 +35,9 @@ export const setCurrentGenreId:ActionCreator<Action> = (genreId: number) => {
 
 export const loadGenres = (requestedGenreId: number) => (dispatch: Dispatch<State>, getState: () => State) => {
     const { topTwentyAlbums } = getState();
+    const { genresMap } = topTwentyAlbums;
 
-    if (topTwentyAlbums.genresMap && !requestedGenreId) {
+    if (genresMap && Object.keys(genresMap).length && !requestedGenreId) {
         return;
     }
 
