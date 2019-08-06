@@ -24,16 +24,18 @@ import * as topTwentyDataModels from '../modules/topTwentyAlbums/topTwentyAlbums
 import ClickingExample from "../modules/clickingExample/clickingExample";
 import TopTwentyAlbums from "../modules/topTwentyAlbums/topTwentyAlbums";
 
-interface ApplicationProps extends RouteComponentProps<{}> { // route params should be defined in the RouteComponentProps type
+interface ApplicationProps {
     userName: string;
     currentGenre: topTwentyDataModels.ITunesGenre;
 };
 
-interface ApplicationState { open: boolean }
+interface ApplicationState { open: boolean };
 
-class Application extends Component<ApplicationProps, ApplicationState> {
+type IProps = ApplicationProps & RouteComponentProps<{}>;
 
-    constructor(props: ApplicationProps) {
+class Application extends Component<IProps, ApplicationState> {
+
+    constructor(props: IProps) {
         super(props);
         this.state = { open: false };
     }

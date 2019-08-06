@@ -26,7 +26,7 @@ class ClickingPanel extends PureComponent<ClickingPanelProps, {}> {
     /* Lifecycle Methods */
 
     componentDidMount() {
-        this.boundDocumentClickHandler = getDocumentClickHandler(this, this.homeButtonWrapperRef, this.props.homeButtonClickedOutsideHandler);
+        this.boundDocumentClickHandler = getDocumentClickHandler(this.homeButtonWrapperRef, this.props.homeButtonClickedOutsideHandler);
         document.addEventListener('click', this.boundDocumentClickHandler);
     }
 

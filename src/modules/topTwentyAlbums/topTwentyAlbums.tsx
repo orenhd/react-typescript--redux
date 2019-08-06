@@ -13,17 +13,19 @@ import * as viewModels from './topTwentyAlbums.viewModels';
 import GenreSelectionBar from './components/genreSelectionBar';
 import AlbumsList from './components/albumsList';
 
-export interface TopTwentyAlbumsProps extends RouteComponentProps<{}> { // route params should be defined in the RouteComponentProps type
+export interface TopTwentyAlbumsProps {
     genres: dataModels.ITunesGenre[];
     currentGenre: dataModels.ITunesGenre;
     albumEntriesList: viewModels.AlbumEntryListItem[];
-    loadGenres: any;
-    loadAlbumEntriesByGenreId: any;
-    match: any;
-    history: any;
+    loadGenres: (requestedGenreId: number) => any;
+    loadAlbumEntriesByGenreId: (genreId: number) => any;
 }
 
-export class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> { // export base class for testing purposes
+type IProps = TopTwentyAlbumsProps & RouteComponentProps<{
+    genreId: string,
+}>
+
+export class TopTwentyAlbums extends PureComponent<IProps, {}> { // export base class for testing purposes
 
     /* Lifecycle Methods */
 
@@ -32,7 +34,7 @@ export class TopTwentyAlbums extends PureComponent<TopTwentyAlbumsProps, {}> { /
         this.props.loadGenres(genreId);
     }
 
-    componentDidUpdate(prevProps: TopTwentyAlbumsProps) {
+    componentDidUpdate(prevProps: IProps) {
         /* if route param has changed - store the new viewedLocationId */
         if (this.props.match.params.genreId !== prevProps.match.params.genreId) {
             const genreId: number = parseInt(this.props.match.params.genreId, 10);
@@ -80,4 +82,4 @@ const mapDispatchToProps = (dispatch: Dispatch<State>) => {
     }, dispatch);
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TopTwentyAlbums));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(TopTwentyAlbums));

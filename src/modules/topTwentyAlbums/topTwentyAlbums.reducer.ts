@@ -1,7 +1,7 @@
+import { AnyAction } from 'redux';
 import { SET_GENRES, SET_ALBUM_ENTRIES, SET_CURRENT_GENRE_ID } from './topTwentyAlbums.actions';
 
 import * as dataModels from './topTwentyAlbums.dataModels';
-import * as viewModels from './topTwentyAlbums.viewModels';
 
 export interface state {
     genresMap: dataModels.ITunesGenresMap;
@@ -15,7 +15,7 @@ const initialState: state = {
     currentGenreId: null
 }
 
-export function reducer(state: state = initialState, action: any) {
+export function reducer(state: state = initialState, action: AnyAction) {
   switch (action.type) {
     case SET_GENRES:
       return { ...state, genresMap: action.genresMap };

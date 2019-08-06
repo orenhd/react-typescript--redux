@@ -36,6 +36,10 @@ export const setCurrentGenreId:ActionCreator<Action> = (genreId: number) => {
 export const loadGenres = (requestedGenreId: number) => (dispatch: Dispatch<State>, getState: () => State) => {
     const { topTwentyAlbums } = getState();
 
+    if (topTwentyAlbums.genresMap && !requestedGenreId) {
+        return;
+    }
+
     ITunesService.getGenres().then((genres: dataModels.ITunesGenre[]) => {
         const genresMap: dataModels.ITunesGenresMap = <dataModels.ITunesGenresMap> getMapFromArrayByPropertyKey(genres, 'id');
         dispatch(setGenres(genresMap));

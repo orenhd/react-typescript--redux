@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Dispatch, bindActionCreators } from 'redux';
+import { Dispatch, bindActionCreators, ActionCreator, AnyAction } from 'redux';
 import { connect } from 'react-redux';
 
 import { State } from '../../application/application.store' 
@@ -10,14 +10,14 @@ import * as dataModels from './clickingExample.dataModels';
 import UserNameBar from './components/userNameBar';
 import ClickingPanel from './components/clickingPanel';
 
-interface ClickingExmapleProps {
+interface ClickingExampleProps {
     userName: string;
     clickingData: dataModels.ClickingData;
-    setUserName: any;
-    updateClickingData: any;
+    setUserName: ActionCreator<AnyAction>;
+    updateClickingData: (clickCountType: dataModels.ClickCountTypes) => any;
 }
 
-export class ClickingExample extends PureComponent<ClickingExmapleProps, {}> { // export base class for testing purposes
+export class ClickingExample extends PureComponent<ClickingExampleProps, {}> { // export base class for testing purposes
 
     /* Class Methods */
 

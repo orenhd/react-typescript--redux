@@ -1,4 +1,4 @@
-import { Action } from 'redux';
+import { AnyAction } from 'redux';
 
 import { SET_USER_NAME, UPDATE_CLICKING_DATA } from './clickingExample.actions';
 
@@ -14,7 +14,7 @@ const initialState: state = {
   clickingData: {}
 }
 
-export function reducer(state: state = initialState, action: any) {
+export function reducer(state: state = initialState, action: AnyAction) {
   switch (action.type) {
     case SET_USER_NAME:
       return { ...state, userName: action.userName };

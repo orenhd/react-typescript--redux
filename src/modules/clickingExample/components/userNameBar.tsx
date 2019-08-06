@@ -17,7 +17,7 @@ const UserNameBar: SFC<UserNameBarProps> = (props: UserNameBarProps) =>
 <TextField
     defaultValue={props.userName ? props.userName : ''}
     floatingLabelText={$t.formatMessage({id: 'clickingExample.userName'})}
-    onChange={(e: React.FocusEvent<{}>, newValue: any) => {props.userNameChangedHandler(newValue)}}
+    onChange={(e: React.FormEvent<{}>, newValue: string) => {props.userNameChangedHandler(newValue)}}
 />
 
 /* We can still use propTypes for dynamic type-checking ;) */
